@@ -14,7 +14,6 @@ public class Neuron
 	
 	public Neuron(int numInputs)
 	{
-		df = new DecimalFormat("0.000");
 		numInput = numInputs;
 		weights = new double[numInput];
 		Random gen = new Random();
@@ -23,10 +22,11 @@ public class Neuron
 		{
 			double newWeight = gen.nextDouble();
 			weights[i] = newWeight;
-			System.out.print(df.format(newWeight) + " ");
+			System.out.print(newWeight + " ");
 		}
 		System.out.println();
 		initWeights = weights;
+		df = new DecimalFormat("0.000");
 	}
 	
 	public void test(double[] newInput, double desiredOutput)
@@ -53,11 +53,10 @@ public class Neuron
 		output = 0;
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
-		output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		//return output;
 		
-		return output;
+		return 1 / (1 + Math.pow(Math.E, -output));
 	}
 	public void findError(double desiredOutput)
 	{
@@ -75,5 +74,11 @@ public class Neuron
 		}
 		System.out.println();
 			
+	}
+	private void printArray(double[] arr)
+	{
+		for(int i = 0; i < arr.length; i++)
+			System.out.print(df.format(arr[i]) + " ");
+		System.out.println();
 	}
 }

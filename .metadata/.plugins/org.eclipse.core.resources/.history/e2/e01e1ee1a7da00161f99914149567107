@@ -14,19 +14,15 @@ public class Neuron
 	
 	public Neuron(int numInputs)
 	{
-		df = new DecimalFormat("0.000");
 		numInput = numInputs;
 		weights = new double[numInput];
 		Random gen = new Random();
 		System.out.print("Initial weights: ");
-		for(int i = 0; i < numInput; i++)
-		{
-			double newWeight = gen.nextDouble();
-			weights[i] = newWeight;
-			System.out.print(df.format(newWeight) + " ");
-		}
-		System.out.println();
+		for(int i = 0; i < numInput; i++) 
+			weights[i] = gen.nextDouble();
+		printArray(weights);
 		initWeights = weights;
+		df = new DecimalFormat("0.000");
 	}
 	
 	public void test(double[] newInput, double desiredOutput)
@@ -47,17 +43,14 @@ public class Neuron
 	{
 		input = newInput;
 		System.out.print("Input: ");
-		for(int i = 0; i < numInput; i++)
-			System.out.print(df.format(input[i]) + " ");
-		System.out.println();
+		printArray(newInput);
 		output = 0;
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
-		output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		//return output;
 		
-		return output;
+		return 1 / (1 + Math.pow(Math.E, -output));
 	}
 	public void findError(double desiredOutput)
 	{
@@ -69,11 +62,15 @@ public class Neuron
 	{
 		System.out.print("New Weights: ");
 		for(int i = 0; i < numInput; i++)
-		{
 			weights[i] += error * input[i] * output * (1 - output);
-			System.out.print(df.format(weights[i]) + " ");
-		}
+		printArray(weights);
 		System.out.println();
 			
+	}
+	private void printArray(double[] arr)
+	{
+		for(int i = 0; i < arr.length - 1; i++)
+			System.out.print(df.format(arr[i]) + " ");
+		System.out.println();
 	}
 }
