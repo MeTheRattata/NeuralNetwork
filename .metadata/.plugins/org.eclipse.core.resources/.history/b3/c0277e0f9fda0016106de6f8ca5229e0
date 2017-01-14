@@ -1,6 +1,5 @@
 import java.util.Random;
 import java.lang.Math;
-import java.text.DecimalFormat;
 
 public class Neuron 
 {
@@ -10,7 +9,6 @@ public class Neuron
 	double[] input;
 	double output;
 	double error;
-	DecimalFormat df;
 	
 	public Neuron(int numInputs)
 	{
@@ -26,15 +24,8 @@ public class Neuron
 		}
 		System.out.println();
 		initWeights = weights;
-		df = new DecimalFormat("0.000");
 	}
 	
-	public void test(double[] newInput, double desiredOutput)
-	{
-		activate(newInput);
-		findError(desiredOutput);
-		System.out.println();
-	}
 	public void train(double[] newInput, double desiredOutput)
 	{
 		activate(newInput);
@@ -47,12 +38,12 @@ public class Neuron
 		input = newInput;
 		System.out.print("Input: ");
 		for(int i = 0; i < numInput; i++)
-			System.out.print(df.format(input[i]) + " ");
+			System.out.print(input[i] + " ");
 		System.out.println();
 		output = 0;
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
-		System.out.println("Output: " + df.format(output));
+		System.out.println("Output: " + output);
 		return output;
 		
 		//return 1 / (1 + Math.pow(Math.E, -output));
@@ -60,8 +51,8 @@ public class Neuron
 	public void findError(double desiredOutput)
 	{
 		error = desiredOutput - output;
-		System.out.println("Desired Output: " + df.format(desiredOutput));
-		System.out.println("Error: " + df.format(error));
+		System.out.println("Desired Output: " + desiredOutput);
+		System.out.println("Error: " + error);
 	}
 	public void adjustWeights()
 	{
@@ -69,7 +60,7 @@ public class Neuron
 		for(int i = 0; i < numInput; i++)
 		{
 			weights[i] += error * input[i] * output * (1 - output);
-			System.out.print(df.format(weights[i]) + " ");
+			System.out.print(weights[i] + " ");
 		}
 		System.out.println();
 			

@@ -1,3 +1,4 @@
+import java.util.NumberFormat;
 public class NeuralNetwork 
 {
 	public static void main(String[] args) 
@@ -17,7 +18,12 @@ public class NeuralNetwork
 				neuron.train(trainingInput[i], trainingOutput[i]);
 		
 		//Tests the neuron's abilities on the test input
-		neuron.test(testInput, testOutput);
+		System.out.print("Test input: ");
+		for(int i = 0; i < testInput.length; i++)
+			System.out.print(testInput[i]);
+		System.out.println();
+		System.out.println("Output: " + neuron.activate(testInput));
+		System.out.println("Desired output: " + testOutput);
 		
 	}
 }
