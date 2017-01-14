@@ -4,12 +4,13 @@ import java.lang.Math;
 public class Neuron 
 {
 	int numInput;
+	double learnRate;
 	double[] weights;
 	double[] input;
 	double output;
 	double error;
 	
-	public Neuron(int numInputs)
+	public Neuron(int numInputs, double learningRate)
 	{
 		numInput = numInputs;
 		weights = new double[numInput];

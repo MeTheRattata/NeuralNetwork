@@ -4,12 +4,13 @@ import java.lang.Math;
 public class Neuron 
 {
 	int numInput;
+	double learnRate;
 	double[] weights;
 	double[] input;
 	double output;
 	double error;
 	
-	public Neuron(int numInputs)
+	public Neuron(int numInputs, double learningRate)
 	{
 		numInput = numInputs;
 		weights = new double[numInput];
@@ -18,11 +19,9 @@ public class Neuron
 			weights[i] = gen.nextDouble();
 	}
 	
-	public void learn(double[] newInput, double desiredOutput)
+	public void learn()
 	{
-		activate(newInput);
-		findError(desiredOutput);
-		adjustWeights();
+		
 	}
 	public double activate(double[] newInput)
 	{
@@ -30,6 +29,7 @@ public class Neuron
 		output = 0;
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
+		
 		
 		return 1 / (1 + Math.pow(Math.E, -output));
 	}
