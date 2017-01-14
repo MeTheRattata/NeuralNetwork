@@ -31,7 +31,6 @@ public class Neuron
 		activate(newInput);
 		findError(desiredOutput);
 		adjustWeights();
-		System.out.println();
 	}
 	public double activate(double[] newInput)
 	{

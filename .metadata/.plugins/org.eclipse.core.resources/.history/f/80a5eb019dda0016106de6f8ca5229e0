@@ -31,15 +31,10 @@ public class Neuron
 		activate(newInput);
 		findError(desiredOutput);
 		adjustWeights();
-		System.out.println();
 	}
 	public double activate(double[] newInput)
 	{
 		input = newInput;
-		System.out.print("Input: ");
-		for(int i = 0; i < numInput; i++)
-			System.out.print(input[i] + " ");
-		System.out.println();
 		output = 0;
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
@@ -60,7 +55,7 @@ public class Neuron
 		for(int i = 0; i < numInput; i++)
 		{
 			weights[i] += error * input[i] * output * (1 - output);
-			System.out.print(weights[i] + " ");
+			System.out.print(weights[i]);
 		}
 		System.out.println();
 			
