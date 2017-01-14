@@ -6,10 +6,8 @@ public class Neuron
 	int numInput;
 	double learnRate;
 	double[] weights;
-	double[] input;
+	double[] output;
 	double outputSum;
-	double output;
-	double[] error;
 	
 	public Neuron(int numInputs, double learningRate)
 	{
@@ -18,30 +16,22 @@ public class Neuron
 		Random gen = new Random();
 		for(int i = 0; i < numInput; i++)
 			weights[i] = gen.nextDouble();
-		error = new double[numInput];
+		output = new double[numInput];
 	}
 	
-	public void learn()
+	public double activate(double[] input)
 	{
-		
-	}
-	public double activate(double[] newInput)
-	{
-		input = newInput;
 		for(int i = 0; i < numInput; i++)
-			outputSum += input[i] * weights[i];
-		
-		
+		{
+			output[i] = input[i] * weights[i];
+			outputSum += output[i];
+		}
 		return 1 / (1 + Math.pow(Math.E, -outputSum));
 	}
 	public void findError(double[] desiredOutput)
 	{
+		double[] error = new double[numInput];
 		for(int i = 0; i < numInput; i++)
 			error[i] = desiredOutput[i] - output[i];
-	}
-	public void adjustWeights()
-	{
-		for(int i = 0; i < numInput; i++)
-			weights[i] += learnRate * error[i] * input[i];
 	}
 }

@@ -1,0 +1,29 @@
+import java.util.Random;
+import java.lang.Math;
+
+public class Neuron 
+{
+	double[] weights;
+	double[] output;
+	double outputSum;
+	
+	public Neuron(int numInputs)
+	{
+		weights = new double[numInputs];
+		Random gen = new Random();
+		for(int i = 0; i < numInputs; i++)
+			weights[i] = gen.nextDouble();
+		output = new double[numInputs];
+	}
+	
+	public double activate(double[] input)
+	{
+		for(int i = 0; i < output.length; i++)
+		{
+			output[i] = input[i] * weights[i];
+			outputSum += output[i];
+		}
+			
+		double finalOutput = 1 / (1 + pow(Math.E, -outputSum));
+	}
+}
