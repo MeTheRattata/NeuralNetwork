@@ -49,8 +49,6 @@ public class Neuron
 		output = 0;
 		for(int i = 0; i < numInput; i++)
 			output += (input.charAt(i) - 97) * weights[i];
-		output /= 50;
-		System.out.println("Output: " + df.format(output));
 		output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		return output;

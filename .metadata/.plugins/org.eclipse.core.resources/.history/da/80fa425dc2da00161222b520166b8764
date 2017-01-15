@@ -45,29 +45,29 @@ public class Neuron
 	public double activate(String newInput)
 	{
 		input = newInput;
-		System.out.println("Input: " + input);
+		System.out.print("Input: ");
+		for(int i = 0; i < numInput; i++)
+			System.out.print((input.charAt(i) - 48) + " ");
+		System.out.println();
 		output = 0;
 		for(int i = 0; i < numInput; i++)
-			output += (input.charAt(i) - 97) * weights[i];
-		output /= 50;
-		System.out.println("Output: " + df.format(output));
+			output += (input.charAt(i) - 48) * weights[i];
 		output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		return output;
 	}
-	public double findError(double desiredOutput)
+	public void findError(double desiredOutput)
 	{
-		error = 0.5 * Math.pow(desiredOutput - output, 2);
+		error = desiredOutput - output;
 		System.out.println("Desired Output: " + df.format(desiredOutput));
 		System.out.println("Error: " + df.format(error));
-		return error;
 	}
 	public void adjustWeights()
 	{
 		System.out.print("New Weights: ");
 		for(int i = 0; i < numInput; i++)
 		{
-			weights[i] += error * (input.charAt(i) - 97) * output * (1 - output);
+			weights[i] += error * (input.charAt(i) - 48) * output * (1 - output);
 			System.out.print(df.format(weights[i]) + " ");
 		}
 		System.out.println();
