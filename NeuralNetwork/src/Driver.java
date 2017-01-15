@@ -4,14 +4,14 @@ import java.io.FileNotFoundException;
 
 public class Driver 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args) throws FileNotFoundException 
 	{
-		String[] trainingInput = {"00", "01", "10"};
+		/*String[] trainingInput = {"00", "01", "10"};
 		double[] trainingOutput = {0, 1, 0};
 		String testingInput = "11";
 		double testingOutput = 1;
 		
-		NeuralNetwork network = new NeuralNetwork(2, 2, 1);
+		NeuralNetwork network = new NeuralNetwork(2, 2);
 		
 		int counter = 0, arrayPos = 0;
 		while(counter <= 1000)
@@ -23,11 +23,11 @@ public class Driver
 				arrayPos = 0;
 		}
 		
-		network.forwardPropagate(testingInput, testingOutput);
+		network.forwardPropagate(testingInput, testingOutput);*/
 		
-		/*
-		//Creates a new neuron with 9 inputs
-		Neuron neuron = new Neuron(9);
+		
+		//Creates a new neural network with 9 inputs and 6 hidden neurons
+		NeuralNetwork network = new NeuralNetwork(9, 6);
 		//Initializes the training input / output readers
 		File trainingIn = new File("TrainingInput.txt");
 		File trainingOut = new File("TrainingOutput.txt");
@@ -36,7 +36,7 @@ public class Driver
 		
 		//Trains the neuron on the training input
 		while(trainingInput.hasNext())
-			neuron.train(trainingInput.next().toLowerCase(), trainingOutput.nextDouble());
+			network.learn(trainingInput.next().toLowerCase(), trainingOutput.nextDouble());
 		trainingInput.close();
 		trainingOutput.close();
 			
@@ -46,9 +46,9 @@ public class Driver
 		Scanner testingInput = new Scanner(testingIn);
 		Scanner testingOutput = new Scanner(testingOut);
 		while(testingInput.hasNext())
-			neuron.test(testingInput.next().toLowerCase(), testingOutput.nextDouble());
+			network.forwardPropagate(testingInput.next().toLowerCase(), testingOutput.nextDouble());
 		testingInput.close();
 		testingOutput.close();
-		*/
+		
 	}
 }

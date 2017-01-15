@@ -1,0 +1,54 @@
+import java.text.DecimalFormat;
+
+public class NeuralNetwork 
+{
+	Neuron[] hidden;
+	Neuron output;
+	double[] hiddenInput;
+	double[] outputInput;
+	double finalOutput;
+	DecimalFormat df = new DecimalFormat("0.000");
+	
+	public NeuralNetwork(int numInput, int numHidden)
+	{
+		hidden = new Neuron[numHidden];
+		for(int i = 0; i < hidden.length; i++)
+			hidden[i] = new Neuron(numInput);
+		output = new Neuron(numHidden);
+		outputInput = new double[numHidden];
+	}
+	
+	public void learn(String newInput, double desiredInput)
+	{
+		forwardPropagate(newInput, desiredInput);
+	}
+	public double forwardPropagate(String newInput, double desiredInput)
+	{
+		System.out.println();
+		System.out.println("Input: " + newInput);
+		hiddenInput = strToDoubleArray(newInput);
+		for(int i = 0; i < hidden.length; i++)
+			outputInput[i] = hidden[i].activate(hiddenInput, desiredInput);
+		finalOutput = output.activate(outputInput, desiredInput);
+		return finalOutput;
+	}
+	/*private void backwardPropagate()
+	{
+		for(int i = 0; i < hidden.length; i++)
+			hidden[i].adjustWeightsHidden(finalOutput);
+		output.adjustWeightsOutput();
+	}*/
+	
+	public double[] strToDoubleArray(String str)
+	{
+		double[] nums = new double[str.length()];
+		for(int i = 0; i < str.length(); i++)
+		{
+			nums[i] = (double) str.charAt(i) /*- 96) / 26*/;
+			System.out.print(df.format(nums[i]) + " ");
+		}
+		System.out.println();
+			
+		return nums;
+	}
+}

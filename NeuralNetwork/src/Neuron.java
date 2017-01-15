@@ -12,6 +12,8 @@ public class Neuron
 	double error;
 	double desiredOutput;
 	DecimalFormat df;
+	int weightAffected;
+	double affectedBy;
 	
 	public Neuron(int numInputs)
 	{
@@ -30,26 +32,27 @@ public class Neuron
 		initWeights = weights;
 	}
 	
-	public void test(double[] newInput, double desiredOutput)
+	public double train(double[] trainingInput, double desiredOutput)
 	{
-		activate(newInput, desiredOutput);
+		double inputBefore = activate(trainingInput, desiredOutput);
+		adjustWeights();
+		double inputAfter = activate(trainingInput, desiredOutput);
+		if(inputAfter / desiredOutput > inputBefore / desiredOutput)
+		{
+			revertWeights();
+			return inputBefore;
+		}
 		System.out.println();
-	}
-	public void train(double[] trainingInput, double desiredOutput)
-	{
-		activate(trainingInput, desiredOutput);
-		//adjustWeights();
-		System.out.println();
+		return inputAfter;
 	}
 	public double activate(double[] newInput, double desiredOutput)
 	{
 		input = newInput;
-		System.out.println("Input: " + input);
 		output = 0;
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
-		System.out.println("Output: " + df.format(output));
-		output = 1 / (1 + Math.pow(Math.E, -output));
+		//System.out.println("Output: " + df.format(output));
+		//output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		findError(desiredOutput);
 		return output;
@@ -57,28 +60,22 @@ public class Neuron
 	public double findError(double desired)
 	{
 		desiredOutput = desired;
-		error = 0.5 * Math.pow(desiredOutput - output, 2);
+		error = desiredOutput - output;
 		System.out.println("Desired Output: " + df.format(desiredOutput));
 		System.out.println("Error: " + df.format(error));
 		return error;
 	}
-	public void adjustWeightsOutput()
+	public void adjustWeights()
 	{
-		System.out.print("New Weights: ");
-		for(int i = 0; i < numInput; i++)
-		{
-			weights[i] += error * input[i] * output * (1 - output);
-			System.out.print(df.format(weights[i]) + " ");
-		}
-		System.out.println();
+		int weightAffected = (int) (Math.random() * weights.length);
+		if(error > 0)
+			affectedBy = -0.01;
+		else
+			affectedBy = 0.01;
+		weights[weightAffected] += 0.01;
 	}
-	public void adjustWeightsHidden(double finalOutput)
+	public void revertWeights()
 	{
-		System.out.print("New Weights: ");
-		for(int i = 0; i < numInput; i++)
-		{
-			weights[i] -= input[i] * (finalOutput - Math.pow(finalOutput, 2)) * (finalOutput - desiredOutput);
-			System.out.print(df.format(weights[i]) + " ");
-		}
+		weights[weightAffected] -= affectedBy;
 	}
 }
