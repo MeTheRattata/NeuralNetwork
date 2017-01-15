@@ -35,18 +35,8 @@ public class Driver
 		Scanner trainingOutput = new Scanner(trainingOut);
 		
 		//Trains the neuron on the training input
-		boolean isSmart = false;
-		while(!isSmart)
-		{
-			if(!trainingInput.hasNext())
-			{
-				trainingInput = new Scanner(trainingIn);
-				trainingOutput = new Scanner(trainingOut);
-			}
+		while(trainingInput.hasNext())
 			network.learn(trainingInput.next().toLowerCase(), trainingOutput.nextDouble());
-			if(network.getStreak() == 5)
-				isSmart = true;
-		}
 		trainingInput.close();
 		trainingOutput.close();
 			

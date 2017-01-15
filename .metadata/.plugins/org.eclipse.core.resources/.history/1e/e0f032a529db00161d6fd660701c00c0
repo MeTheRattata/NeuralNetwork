@@ -82,4 +82,8 @@ public class Neuron
 	{
 		return error;
 	}
+	public void sigma()
+	{
+		output = 1 / (1 + Math.pow(Math.E, -output));
+	}
 }

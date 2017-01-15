@@ -52,7 +52,7 @@ public class Neuron
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
 		//System.out.println("Output: " + df.format(output));
-		output = 1 / (1 + Math.pow(Math.E, -output));
+		//output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		findError(desiredOutput);
 		return output;
@@ -81,5 +81,9 @@ public class Neuron
 	public double getError()
 	{
 		return error;
+	}
+	public void sigma()
+	{
+		output = 1 / (1 + Math.pow(Math.E, -output));
 	}
 }

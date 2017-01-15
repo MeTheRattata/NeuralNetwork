@@ -7,8 +7,6 @@ public class NeuralNetwork
 	double[] hiddenInput;
 	double[] outputInput;
 	double finalOutput;
-	double error;
-	int streak = 0;
 	DecimalFormat df = new DecimalFormat("0.000");
 	
 	public NeuralNetwork(int numInput, int numHidden)
@@ -28,18 +26,12 @@ public class NeuralNetwork
 		for(int i = 0; i < hidden.length; i++)
 			outputInput[i] = hidden[i].train(hiddenInput, desiredInput);
 		finalOutput = output.train(outputInput, desiredInput);
-		error = output.getError();
-		if((Math.abs(error) <= 0.01 && Math.abs(error) > 0))
-			streak++;
-		else
-			streak = 0;
 		return finalOutput;
 	}
 	public double forwardPropagate(String newInput, double desiredInput)
 	{
 		System.out.println();
 		System.out.println("Input: " + newInput);
-		printArray(output.weights);
 		hiddenInput = strToDoubleArray(newInput);
 		for(int i = 0; i < hidden.length; i++)
 			outputInput[i] = hidden[i].activate(hiddenInput, desiredInput);
@@ -57,15 +49,5 @@ public class NeuralNetwork
 		System.out.println();
 			
 		return nums;
-	}
-	public int getStreak()
-	{
-		return streak;
-	}
-	private void printArray(double[] arr)
-	{
-		for(int i = 0; i < arr.length; i++)
-			System.out.print(arr[i] + " ");
-		System.out.println();
 	}
 }
