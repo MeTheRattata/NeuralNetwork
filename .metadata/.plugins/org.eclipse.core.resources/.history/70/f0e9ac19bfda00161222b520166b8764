@@ -1,0 +1,18 @@
+import java.util.Scanner;
+import java.io.File;
+
+public class NeuralNetwork 
+{
+	public static void main(String[] args) 
+	{
+		
+		//Creates a new neuron with 9 inputs
+		Neuron neuron = new Neuron(9);
+		
+		//Trains the neuron on the training input
+		
+		
+		//Tests the neuron's abilities on the test input
+		
+	}
+}

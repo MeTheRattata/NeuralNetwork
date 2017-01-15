@@ -48,11 +48,11 @@ public class Neuron
 		input = newInput;
 		System.out.print("Input: ");
 		for(int i = 0; i < numInput; i++)
-			System.out.print((input.charAt(i) - 48) + " ");
+			System.out.print(input.charAt(i) + " ");
 		System.out.println();
 		output = 0;
 		for(int i = 0; i < numInput; i++)
-			output += (input.charAt(i) - 48) * weights[i];
+			output += input[i] * weights[i];
 		output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		//return output;
@@ -70,7 +70,7 @@ public class Neuron
 		System.out.print("New Weights: ");
 		for(int i = 0; i < numInput; i++)
 		{
-			weights[i] += error * (input.charAt(i) - 48) * output * (1 - output);
+			weights[i] += error * input[i] * output * (1 - output);
 			System.out.print(df.format(weights[i]) + " ");
 		}
 		System.out.println();
