@@ -14,7 +14,7 @@ public class NeuralNetwork
 	
 	public double forwardPropagate(String newInput)
 	{
-		
+		return 
 	}
 	
 	private double[] strToDoubleArray(String str)

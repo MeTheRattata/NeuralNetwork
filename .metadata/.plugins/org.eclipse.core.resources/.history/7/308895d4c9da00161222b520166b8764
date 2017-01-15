@@ -7,7 +7,7 @@ public class Neuron
 	int numInput;
 	double[] weights;
 	double[] initWeights;
-	double[] input;
+	String input;
 	double output;
 	double error;
 	DecimalFormat df;
@@ -42,13 +42,13 @@ public class Neuron
 		adjustWeights();
 		System.out.println();
 	}
-	public double activate(double[] newInput)
+	public double activate(double newInput)
 	{
 		input = newInput;
 		System.out.println("Input: " + input);
 		output = 0;
 		for(int i = 0; i < numInput; i++)
-			output += input[i] * weights[i];
+			output += (input.charAt(i) - 97) * weights[i];
 		System.out.println("Output: " + df.format(output));
 		output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
@@ -66,7 +66,7 @@ public class Neuron
 		System.out.print("New Weights: ");
 		for(int i = 0; i < numInput; i++)
 		{
-			weights[i] += error * input[i] * output * (1 - output);
+			weights[i] += error * (input.charAt(i) - 97) * output * (1 - output);
 			System.out.print(df.format(weights[i]) + " ");
 		}
 		System.out.println();

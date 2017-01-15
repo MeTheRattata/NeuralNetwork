@@ -1,0 +1,12 @@
+public class NeuralNetwork 
+{
+	Neuron[] hidden;
+	Neuron[] output;
+	public NeuralNetwork(int numInput, int numHidden, int numOutput)
+	{
+		Neuron[] hidden = new Neuron[numHidden];
+		for(int i = 0; i < hidden.length; i++)
+			hidden[i] = new Neuron(numInput, )
+		Neuron[] output = new Neuron[numOutput];
+	}
+}
