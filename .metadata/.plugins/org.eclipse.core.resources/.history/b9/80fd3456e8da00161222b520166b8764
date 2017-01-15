@@ -1,38 +1,34 @@
 public class NeuralNetwork 
 {
 	Neuron[] hidden;
-	Neuron output;
+	Neuron[] output;
 	double[] hiddenInput;
 	double[] outputInput;
 	double finalOutput;
 	
 	public NeuralNetwork(int numInput, int numHidden, int numOutput)
 	{
-		hidden = new Neuron[numHidden];
+		Neuron[] hidden = new Neuron[numHidden];
 		for(int i = 0; i < hidden.length; i++)
 			hidden[i] = new Neuron(numInput);
-		output = new Neuron(numHidden);
+		Neuron[] output = new Neuron[numOutput];
+		for(int i = 0; i < output.length; i++)
+			output[i] = new Neuron(numHidden);
 		outputInput = new double[numHidden];
 	}
 	
-	public void learn(String newInput, double desiredInput)
-	{
-		forwardPropagate(newInput, desiredInput);
-		backwardPropagate();
-	}
 	public double forwardPropagate(String newInput, double desiredInput)
 	{
 		hiddenInput = strToDoubleArray(newInput);
 		for(int i = 0; i < hidden.length; i++)
 			outputInput[i] = hidden[i].activate(hiddenInput, desiredInput);
-		finalOutput = output.activate(outputInput, desiredInput);
+		for(int i = 0; i < output.length; i++)
+			finalOutput = output[i].activate(outputInput, desiredInput);
 		return finalOutput;
 	}
-	private void backwardPropagate()
+	public void backwardPropagate()
 	{
-		for(int i = 0; i < hidden.length; i++)
-			hidden[i].adjustWeightsHidden(finalOutput);
-		output.adjustWeightsOutput();
+		
 	}
 	
 	public double[] strToDoubleArray(String str)

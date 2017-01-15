@@ -32,16 +32,19 @@ public class Neuron
 	
 	public void test(double[] newInput, double desiredOutput)
 	{
-		activate(newInput, desiredOutput);
+		activate(newInput);
+		findError(desiredOutput);
 		System.out.println();
 	}
-	public void train(double[] trainingInput, double desiredOutput)
+	public void train(double[] trainingInput, double desired)
 	{
-		activate(trainingInput, desiredOutput);
-		//adjustWeights();
+		desiredOutput = desired;
+		activate(trainingInput);
+		findError(desiredOutput);
+		adjustWeights();
 		System.out.println();
 	}
-	public double activate(double[] newInput, double desiredOutput)
+	public double activate(double[] newInput)
 	{
 		input = newInput;
 		System.out.println("Input: " + input);
@@ -51,12 +54,10 @@ public class Neuron
 		System.out.println("Output: " + df.format(output));
 		output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
-		findError(desiredOutput);
 		return output;
 	}
 	public double findError(double desired)
 	{
-		desiredOutput = desired;
 		error = 0.5 * Math.pow(desiredOutput - output, 2);
 		System.out.println("Desired Output: " + df.format(desiredOutput));
 		System.out.println("Error: " + df.format(error));
@@ -64,6 +65,7 @@ public class Neuron
 	}
 	public void adjustWeightsOutput()
 	{
+		findError(desiredOutput);
 		System.out.print("New Weights: ");
 		for(int i = 0; i < numInput; i++)
 		{
@@ -72,13 +74,19 @@ public class Neuron
 		}
 		System.out.println();
 	}
-	public void adjustWeightsHidden(double finalOutput)
+	public void adjustWeightsHidden()
 	{
 		System.out.print("New Weights: ");
 		for(int i = 0; i < numInput; i++)
 		{
-			weights[i] -= input[i] * (finalOutput - Math.pow(finalOutput, 2)) * (finalOutput - desiredOutput);
+			weights[i] -= input[i] * (output - Math.pow(output, 2)) * (output - desiredOutput);
 			System.out.print(df.format(weights[i]) + " ");
 		}
+	}
+	
+	//Partial derivative of the logistic / sigmoid function
+	private double transferDerivative(double output)
+	{
+		return output * (1-output);
 	}
 }

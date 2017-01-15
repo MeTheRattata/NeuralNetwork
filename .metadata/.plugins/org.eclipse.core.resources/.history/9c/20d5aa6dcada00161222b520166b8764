@@ -11,19 +11,7 @@ public class Driver
 		String testingInput = "11";
 		double testingOutput = 1;
 		
-		NeuralNetwork network = new NeuralNetwork(2, 2, 1);
-		
-		int counter = 0, arrayPos = 0;
-		while(counter <= 1000)
-		{
-			network.learn(trainingInput[arrayPos], trainingOutput[arrayPos]);
-			counter++;
-			arrayPos++;
-			if(arrayPos == 3)
-				arrayPos = 0;
-		}
-		
-		network.forwardPropagate(testingInput, testingOutput);
+		strToDoubleArray("interfacer");
 		
 		/*
 		//Creates a new neuron with 9 inputs
@@ -50,5 +38,16 @@ public class Driver
 		testingInput.close();
 		testingOutput.close();
 		*/
+	}
+	public double[] strToDoubleArray(String str)
+	{
+		double[] nums = new double[str.length()];
+		for(int i = 0; i < str.length(); i++)
+		{
+			nums[i] = (double) str.charAt(i);
+			System.out.println(nums[i] + " ");
+		}
+			
+		return nums;
 	}
 }
