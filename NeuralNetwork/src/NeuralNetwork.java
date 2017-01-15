@@ -19,5 +19,8 @@ public class NeuralNetwork
 		//Tests the neuron's abilities on the test input
 		neuron.test(testInput, testOutput);
 		
+		String str = "yolo";
+		System.out.println(str.length());
+		
 	}
 }

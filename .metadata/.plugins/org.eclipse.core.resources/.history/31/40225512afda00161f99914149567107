@@ -1,0 +1,14 @@
+import java.io.*;
+
+public class GermanWordParser 
+{
+	public static void main(String[] args) 
+	{
+		try {
+			FileInputStream in = new FileInputStream("austriazismen.txt");
+		} catch (FileNotFoundException e) {
+			System.out.println("Error, input file not found.");
+			e.printStackTrace();
+		}
+	}
+}

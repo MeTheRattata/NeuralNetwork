@@ -1,0 +1,27 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class GermanWordParser 
+{
+	public static void main(String[] args) throws IOException 
+	{
+		File germanList = new File("GermanWordList1.txt");
+		int num5, num6, num7, num8, num9;
+
+	    try {
+	        Scanner in = new Scanner(germanList);
+
+	        while (in.hasNextLine()) 
+	        {
+	            String str = in.next();
+	            switch (str.length)
+	            System.out.println(str);
+	        }
+	        in.close();
+	    } 
+	    catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}
+}

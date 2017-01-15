@@ -1,0 +1,54 @@
+import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+
+public class GermanWordParser 
+{
+	public static void main(String[] args) throws UnsupportedEncodingException, IOException
+	{
+		File germanList = new File("GermanWordList1.txt");
+		File englishList = new File("EnglishWordList1.txt");
+		
+		//int num5 = 0, num6 = 0, num7 = 0, num8 = 0, num9 = 0;
+
+	    try 
+	    {
+	        Scanner in = new Scanner(germanList);
+	        
+	        File file = new  File("GermanWordList.txt");
+
+	        // if file doesnt exists, then create it
+	        if (!file.exists()) {
+	            file.createNewFile();
+	        }
+
+	        FileWriter fw = new FileWriter(file.getAbsoluteFile());
+	        BufferedWriter bw = new BufferedWriter(fw);
+	        bw.write("");
+	        
+	        
+	        while (in.hasNext()) 
+	        {
+	            String str = in.next();
+	            
+	            System.out.println(str);
+	        }
+	        
+	        
+	        in = new Scanner(englishList);
+	        
+	        bw.close();
+	        in.close();
+	    } 
+	    catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}
+}
