@@ -37,7 +37,7 @@ public class Neuron
 		double inputBefore = activate(trainingInput, desiredOutput);
 		adjustWeights();
 		double inputAfter = activate(trainingInput, desiredOutput);
-		if(inputAfter / desiredOutput >= inputBefore / desiredOutput)
+		if(inputAfter / desiredOutput > inputBefore / desiredOutput)
 		{
 			revertWeights();
 			return inputBefore;
@@ -52,7 +52,7 @@ public class Neuron
 		for(int i = 0; i < numInput; i++)
 			output += input[i] * weights[i];
 		//System.out.println("Output: " + df.format(output));
-		output = 1 / (1 + Math.pow(Math.E, -output));
+		//output = 1 / (1 + Math.pow(Math.E, -output));
 		System.out.println("Output: " + df.format(output));
 		findError(desiredOutput);
 		return output;

@@ -28,7 +28,7 @@ public class Driver
 		}
 		
 		network.forwardPropagate(testingInput, testingOutput);*/
-		
+		try {
 		//Creates a new neural network with 9 inputs and 6 hidden neurons
 		NeuralNetwork network = new NeuralNetwork(9, 6);
 		//Initializes the training input / output readers
@@ -74,6 +74,9 @@ public class Driver
 			System.out.println(AccuracyScan.next());
 		AccuracyScan.close();
 		
+		catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    }
 		/*
 		//Tests the neuron's abilities on the test input
 		File testingIn = new File("TestingInput.txt");

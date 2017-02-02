@@ -37,7 +37,7 @@ public class Neuron
 		double inputBefore = activate(trainingInput, desiredOutput);
 		adjustWeights();
 		double inputAfter = activate(trainingInput, desiredOutput);
-		if(inputAfter / desiredOutput >= inputBefore / desiredOutput)
+		if(inputAfter / desiredOutput > inputBefore / desiredOutput)
 		{
 			revertWeights();
 			return inputBefore;

@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Driver
 {
 	
-	public static void main(String[] args) throws FileNotFoundException, IOException
+	public static void main(String[] args) throws FileNotFoundException
 	{
 		/*String[] trainingInput = {"00", "01", "10"};
 		double[] trainingOutput = {0, 1, 0};
@@ -38,9 +38,17 @@ public class Driver
 		Scanner trainingOutput = new Scanner(trainingOut);
 		Scanner in = new Scanner(System.in);
 		File Accuracy = new File("Accuracy.txt");
-		FileWriter accu = new FileWriter(Accuracy.getAbsoluteFile());
-        BufferedWriter acc = new BufferedWriter(accu);
+		FileWriter accu;
+		BufferedWriter acc;
+		try {
+			accu = new FileWriter(Accuracy.getAbsoluteFile());
+			acc = new BufferedWriter(accu);
         
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//Trains the neuron on the training input
         boolean isSmart = false;
 		double numCorrect = 0;
