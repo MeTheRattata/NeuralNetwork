@@ -1,10 +1,15 @@
 import java.util.Scanner;
+import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class Driver 
 {
-	public static void main(String[] args) throws FileNotFoundException 
+	static boolean isSmart = false;
+	public static void main(String[] args) throws IOException 
 	{
 		/*String[] trainingInput = {"00", "01", "10"};
 		double[] trainingOutput = {0, 1, 0};
@@ -33,23 +38,45 @@ public class Driver
 		File trainingOut = new File("TrainingOutput.txt");
 		Scanner trainingInput = new Scanner(trainingIn);
 		Scanner trainingOutput = new Scanner(trainingOut);
+		File Accuracy = new File("Accuracy.txt");
+		FileWriter accu = new FileWriter(Accuracy.getAbsoluteFile());
+        BufferedWriter acc = new BufferedWriter(accu);
 		
 		//Trains the neuron on the training input
-		boolean isSmart = false;
+		
+		double numCorrect = 0;
+		double numTotal = 0;
 		while(!isSmart)
 		{
+			numTotal++;
 			if(!trainingInput.hasNext())
 			{
 				trainingInput = new Scanner(trainingIn);
 				trainingOutput = new Scanner(trainingOut);
 			}
+			System.out.println(numTotal);
 			network.learn(trainingInput.next().toLowerCase(), trainingOutput.nextDouble());
-			if(network.getStreak() == 5)
-				isSmart = true;
+			if(network.error == 0)
+				numCorrect = 0;
+			if(numTotal == 368)
+			{
+				numTotal = 0;
+				acc.write("" + (numCorrect / numTotal)); 
+				if(numCorrect / numTotal > 0.9)
+					isSmart = true;
+			}
+				
 		}
 		trainingInput.close();
 		trainingOutput.close();
-			
+		acc.close();
+		
+		Scanner AccuracyScan = new Scanner(Accuracy);
+		while(AccuracyScan.hasNext())
+			System.out.println(AccuracyScan.next());
+		AccuracyScan.close();
+		
+		/*
 		//Tests the neuron's abilities on the test input
 		File testingIn = new File("TestingInput.txt");
 		File testingOut = new File("TestingOutput.txt");
@@ -59,6 +86,13 @@ public class Driver
 			network.forwardPropagate(testingInput.next().toLowerCase(), testingOutput.nextDouble());
 		testingInput.close();
 		testingOutput.close();
-		
+		*/
+	}
+	public void keyPressed(KeyEvent e) 
+	{
+	    int key = e.getKeyCode();
+	    if (key == KeyEvent.VK_SPACE) {
+	        isSmart = true; 
+	    }
 	}
 }

@@ -58,10 +58,6 @@ public class NeuralNetwork
 			
 		return nums;
 	}
-	public int getStreak()
-	{
-		return streak;
-	}
 	private void printArray(double[] arr)
 	{
 		for(int i = 0; i < arr.length; i++)

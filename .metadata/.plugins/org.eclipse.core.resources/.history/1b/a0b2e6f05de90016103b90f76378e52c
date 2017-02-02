@@ -1,0 +1,85 @@
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
+public class Driver 
+{
+	public static void main(String[] args) throws FileNotFoundException 
+	{
+		/*String[] trainingInput = {"00", "01", "10"};
+		double[] trainingOutput = {0, 1, 0};
+		String testingInput = "11";
+		double testingOutput = 1;
+		
+		NeuralNetwork network = new NeuralNetwork(2, 2);
+		
+		int counter = 0, arrayPos = 0;
+		while(counter <= 1000)
+		{
+			network.learn(trainingInput[arrayPos], trainingOutput[arrayPos]);
+			counter++;
+			arrayPos++;
+			if(arrayPos == 3)
+				arrayPos = 0;
+		}
+		
+		network.forwardPropagate(testingInput, testingOutput);*/
+		
+		
+		//Creates a new neural network with 9 inputs and 6 hidden neurons
+		NeuralNetwork network = new NeuralNetwork(9, 6);
+		//Initializes the training input / output readers
+		File trainingIn = new File("TrainingInput.txt");
+		File trainingOut = new File("TrainingOutput.txt");
+		Scanner trainingInput = new Scanner(trainingIn);
+		Scanner trainingOutput = new Scanner(trainingOut);
+		
+		//Trains the neuron on the training input
+		boolean isSmart = false;
+		double numCorrect = 0;
+		double numTotal = 0;
+		double[] lastTenAccuracies = new double[10];
+		int numAccuracies = 0;
+		while(!isSmart)
+		{
+			numTotal++;
+			if(!trainingInput.hasNext())
+			{
+				trainingInput = new Scanner(trainingIn);
+				trainingOutput = new Scanner(trainingOut);
+			}
+			System.out.println(numTotal);
+			network.learn(trainingInput.next().toLowerCase(), trainingOutput.nextDouble());
+			if(network.error == 0)
+				numCorrect = 0;
+			if(numTotal == 368)
+			{
+				numTotal = 0;
+				numAccuracies++;
+				if(numAccuracies > 9)
+					numAccuracies = 0;
+				lastTenAccuracies[numAccuracies] = numCorrect / numTotal;
+				if(numCorrect / numTotal > 0.9)
+					isSmart = true;
+			}
+				
+		}
+		for(int i = 0; i < lastTenAccuracies.length; i++)
+			System.out.println(lastTenAccuracies[i]);
+		
+		trainingInput.close();
+		trainingOutput.close();
+		
+		/*
+		//Tests the neuron's abilities on the test input
+		File testingIn = new File("TestingInput.txt");
+		File testingOut = new File("TestingOutput.txt");
+		Scanner testingInput = new Scanner(testingIn);
+		Scanner testingOutput = new Scanner(testingOut);
+		while(testingInput.hasNext())
+			network.forwardPropagate(testingInput.next().toLowerCase(), testingOutput.nextDouble());
+		testingInput.close();
+		testingOutput.close();
+		*/
+	}
+}
